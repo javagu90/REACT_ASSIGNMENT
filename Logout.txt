@@ -1,0 +1,19 @@
+import React from 'react';
+import Alert from 'react-bootstrap/Alert';
+
+class Logout extends React.Component {
+    render() {
+        return(
+            <React.Fragment>
+                    <div className="container">
+                        <br/>
+                        <Alert variant="info">
+                            Thanks for your help <b>{this.props.match.params.user}</b>!!
+                        </Alert>
+                    </div>
+            </React.Fragment>
+        );
+    }
+}
+
+export default Logout;

@@ -1,0 +1,71 @@
+import React from 'react';
+import axios from 'axios';
+import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+class Main extends React.Component {
+
+    constructor() {
+        super();
+        this.state={
+            employees:[],
+            recommended:"",
+            numRecomended:0
+        }
+    }
+
+    componentDidMount(){
+        axios.get('/employees.json').then((result)=>{
+            this.setState({employees:result.data});
+        }).catch((error)=>{
+            this.setState({error})
+        });
+    }
+
+    send=()=>{
+        this.props.history.push('/logout/'+this.props.match.params.user);
+    }
+
+    addRecommended=(e)=>{
+        this.setState({numRecomended:this.state.numRecomended+1, recommended:e.target.value});
+    }
+
+    render() {
+        return(
+            <React.Fragment>
+                <div className="container">
+                    <Table striped bordered style={{textAlign:"center"}}>
+                        <thead>
+                            <th>Employee Id</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Recommendation</th>
+                        </thead>
+                        <tbody>
+                            {            
+                                this.state.employees.map((employee)=>{
+                                    return <tr>
+                                            <td>{employee.empId}</td>
+                                            <td>{employee.name}</td>
+                                            <td>{employee.lastName}</td>
+                                            <td>
+                                            <Button type="submit" variant="primary" value={employee.name} onClick={this.addRecommended}>Recommend</Button>
+                                            </td>
+                                    </tr>
+                                })   
+                            }
+                        </tbody>
+                    </Table>
+                    <br/>
+                    {this.state.numRecomended >0 ?<p>You have recommended {this.state.numRecomended}. Last one was <b>{this.state.recommended}</b>.<br/></p>:<br/>}
+                    <Button type="submit" variant="primary" onClick={this.send}>Send</Button>
+                </div>
+            </React.Fragment>
+        );
+    }
+}
+
+export default Main;

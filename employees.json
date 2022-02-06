@@ -1,0 +1,6 @@
+[
+    {"empId":"1001", "name":"John" , "lastName":"Marstow"},
+    {"empId":"1002", "name":"Dan", "lastName":"Schinder"},
+    {"empId":"1003", "name":"Mike", "lastName":"Mc Neil"},
+    {"empId":"1004", "name":"Harry", "lastName":"Shoaf"}
+]
